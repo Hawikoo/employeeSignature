@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding-right: 10px;
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+    word-spacing: 1rem;  
+   
+}
+*:hover{
+    color: bisque;
+
+}
+nav{
+    background-color: rgb(244, 244, 241);
+    border-radius: 10px;
+}
+
+body{
+    margin-top: -600px;
+    margin-right: 150px;
+    padding: 5% 5% 0 5%;
+}

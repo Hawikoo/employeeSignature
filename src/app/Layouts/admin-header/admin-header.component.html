@@ -1,0 +1,64 @@
+
+  <body class="p-3 m-0 border-0 bd-example">
+
+    <div id="navbar">
+      <header>
+        <nav class="navbar navbar-expand-lg navbarlight fixed-top ">
+      <div class="container-fluid">
+        <a class="navbar-brand" routerLink="#"><img src="../../../assets/logo.jpg" width="150px"> </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" routerLink="/admin/homepage">Home</a>
+            </li>
+           
+            <li class="nav-item dropdown">
+              <a class="nav-link " routerLink="/admin/employee-management" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                EmployeeManagement
+              </a>
+              
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link " routerLink="/admin/user-management" role="button" aria-expanded="false">
+                UserManagement
+              </a>
+            
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link " routerLink="/admin/image-management" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ImageManagement
+              </a>
+          
+            </li>
+
+            <a class="btn navbar-btn btn-outline-warning navbar-right pull-right" style="margin-left: 550px;" role="button" (click)="logout()" routerLink="/login">Logout</a>
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
+  </header>
+  </div>
+  <script>
+    window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+  </script>
+  </body>
+
+

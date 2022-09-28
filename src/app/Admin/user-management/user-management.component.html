@@ -1,0 +1,164 @@
+<body>
+
+
+  <nav class="navbar nav-light ">
+    <div class="container-fluid">
+      <h1>User List</h1>
+      <div class="d-flex">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-success"> Add
+          User</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="form-group col-md-4">
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchedKeyword">
+  </div>
+
+  <table class="table mt-5">
+    <thead>
+      <tr>
+        <!-- <th scope="col">Emp_Id</th> -->
+
+       
+        <th scope="col">email</th>
+
+
+        <th scope="col">username</th>
+        <th scope="col">employee</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr></tr>
+      <tr *ngFor="let row of users | filter:searchedKeyword">
+        <!-- <td>{{row.id}}</td> -->
+       
+        <td> {{row.email}}</td>
+
+        <td>{{row.username}}</td>
+        <td *ngIf="row.employee">{{row.employee.firstName}} {{row.employee.middleName}}</td>
+        <td *ngIf="!row.employee"></td>
+        <td>
+          <button type="button" data-bs-toggle="modal" (click)="changeUpdate(row)" data-bs-target="#updateModal"
+            class="btn btn-outline-info">Edit </button>
+          <button (click)="deleteUserDetail(row.id)" class="btn btn-outline-danger mx-3">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="editData" class=" needs-validation was-validated" novalidate="">
+
+            <div class="mb-3">
+              <label class="form-label">password</label>
+              <input type="number" formControlName="password" class="form-control" aria-describedby="emailHelp"
+                id="validation" required="">
+
+            </div>
+            <div class="mb-3">
+              <label class="form-label">email</label>
+              <input type="email" formControlName="email" class="form-control" id="validation" required="">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">username</label>
+              <input type="text" formControlName="username" class="form-control" aria-describedby="emailHelp"
+                id="validation" required="">
+
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">employee</label>
+              <select class="" id="" input type="text" formControlName="employee" class="form-control">
+                <!-- <option *ngFor="let emp of employees" value="{{emp.coopId}}">{{emp.firstName}} {{emp.middleName}}</option> -->
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <!-- <button type="submit" class="btn btn-secondary" (click)="editEmployeeDetail(row.id)"  data-bs-dismiss="modal">Update</button> -->
+          <!-- <button type="submit">Create</button> -->
+          <!-- <button type="button" *ngIf="showAdd" (click)="postEmployeeDetail()" class="btn btn-primary" [disabled]="formValue.invalid">Add</button>-->
+          <!-- <button type="button" *ngIf="showUpdate"(click)="editUserDetail(row.id)" class="btn btn-primary">Update</button>  -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- <form [formGroup]="testData" (ngSubmit)="insert()">
+            <div class="mb-3">
+              <label for="username" class="col-md-4">UserName</label>
+              <input type="text" class="col-md-6 form-control" formControlName="username" id="username">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="col-md-4">Password</label>
+              <input type="password" class="col-md-6 form-control" formControlName="password" id="password">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="col-md-4">Email</label>
+              <input type="email" class="col-md-6 form-control" formControlName="email" id="email">
+            </div>
+            <div class="mb-3">
+              <label for="employee" class="form-label">Employee</label>
+              <select id="employee" input type="text" formControlName="employee" class="form-control">
+                <option *ngFor="let emp of employees" value="{{emp.id}}">{{emp.firstName}} {{emp.middleName}}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <input type="submit" value="Save">
+            </div>
+          </form> -->
+          <form [formGroup]="testData" class=" needs-validation was-validated" novalidate="" (ngSubmit)="add()">
+
+            <div class="mb-3">
+              <label class="form-label">password</label>
+              <input type="password" formControlName="password" class="form-control" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">email</label>
+              <input type="email" formControlName="email" class="form-control"  id="validation" required="">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">username</label>
+              <input type="text" formControlName="username" class="form-control" aria-describedby="emailHelp"
+                id="validation" required="">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">employee</label>
+              <select class="" id="" input type="text" formControlName="employee" class="form-control">
+                <option *ngFor="let emp of employees" value="{{emp.id}}">{{emp.firstName}} {{emp.middleName}}
+                </option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-secondary"  data-bs-dismiss="modal">Save</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>

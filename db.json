@@ -1,0 +1,40 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "CoopId": 25,
+      "FirstName": "hb",
+      "MiddleName": "kedir",
+      "LastName": "jik",
+      "PhoneNo": 941727128,
+      "Email": "saro@gmail.com",
+      "Process": "...",
+      "SubProcess": "...",
+      "Team": "..."
+    }
+  ],
+  "comments": [],
+  "User": [
+    {
+      "id": 3,
+      "UserName": "455",
+      "Password": "4551",
+      "Employee": null
+    },
+    {
+      "id": 4,
+      "UserName": "admin",
+      "Password": "admin",
+      "Employee": "..."
+    },
+    {
+      "id": 5,
+      "UserName": "hjkl",
+      "Password": "4543",
+      "Employee": "..."
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

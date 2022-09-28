@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+<body>
+  <nav class="navbar nav-light ">
+    <div class="container mb-3 mt-3">
+      <h1>Employee List</h1>
+      <div class="d-flex">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-success"> Add
+          Employee</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="form-group col-md-4">
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchedKeyword"> 
+  </div>
+  <table class="table table-stripped table-bordered mydatatable" style="width: 100%">
+  
+    <thead>
+      <tr>
+        <!-- <th scope="col">Emp_Id</th> -->
+        <th scope="col">Id</th>
+        <th scope="col">coopId</th>
+        <th scope="col">fullName</th>
+
+
+        <th scope="col">phoneNo</th>
+        <th scope="col">email</th>
+        <th scope="col">division</th>
+
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+
+   
+   
+    <tbody>
+      <tr></tr>
+      <tr *ngFor="let row of employeeData | filter:searchedKeyword"> 
+        <td>{{row.id}}</td>
+        <td>{{row.coopId}}</td>
+        <td> {{row.firstName}}&nbsp;{{row.middleName}}&nbsp;{{row.lastName}}</td>
+
+        <td>{{row.phone}}</td>
+        <td>{{row.email}}</td>
+        <td *ngIf="row.division">{{row.division.name}}</td>
+        <td *ngIf="!row.division"></td>
+        <td>
+          <button type="button" data-bs-toggle="modal" (click)="changeUpdate(row)" data-bs-target="#updateModal"
+            class="btn btn-outline-info">Edit </button>
+          <button (click)="deleteEmployeeDetail(row.id)" class="btn btn-outline-danger mx-3">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Employee Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="editData" class=" needs-validation was-validated" novalidate="">
+
+            <div class="mb-3">
+              <label class="form-label">coopId</label>
+              <input type="number" formControlName="coopId" class="form-control" aria-describedby="emailHelp"
+                id="validation" required="">
+
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">firstName</label>
+              <input type="text" formControlName="firstName" [pattern]="namePattern" class="form-control"
+                aria-describedby="emailHelp" id="validation" required="">
+
+            </div>
+            <div class="mb-3">
+              <label class="form-label">middleName</label>
+              <input type="text" formControlName="middleName" [pattern]="namePattern" class="form-control"
+                id="validation" required="">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">lastName</label>
+              <input type="text" formControlName="lastName" [pattern]="namePattern" class="form-control" id="validation"
+                required="">
+            </div>
+
+
+            <div class="mb-3">
+              <label class="form-label">phoneNo</label>
+              <input type="text" formControlName="phoneNo" class="form-control" id="validation" required="">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">email</label>
+              <input type="email" formControlName="email" [pattern]="emailPattern" class="form-control" id="validation"
+                required="">
+            </div>
+
+
+
+            <div class="mb-3">
+              <label for="division">Division</label>
+              <br>
+              <select class="form-control" formControlName="division">
+                <option *ngFor="let division of divisions" value="{{division.id}}">{{division.name}}</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-secondary" (click)="editEmployeeDetail(edit_id)"
+            data-bs-dismiss="modal">Update</button>
+          <!-- <button type="submit">Create</button> -->
+          <!-- <button type="button" *ngIf="showAdd" (click)="postEmployeeDetail()" class="btn btn-primary" [disabled]="formValue.invalid">Add</button>
+          <button type="button" *ngIf="showUpdate"(click)="editEmployeeDetail(row.id)" class="btn btn-primary">Update</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Employee Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="userData" class=" needs-validation was-validated" novalidate="">
+
+            <div class="mb-3">
+              <label class="form-label">coopId</label>
+              <input type="number" formControlName="coopId" class="form-control" aria-describedby="emailHelp"
+                id="validation" required="">
+
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">firstName</label>
+              <input type="text" formControlName="firstName" [pattern]="namePattern" class="form-control"
+                aria-describedby="emailHelp" id="validation" required="">
+
+            </div>
+            <div class="mb-3">
+              <label class="form-label">middleName</label>
+              <input type="text" formControlName="middleName" [pattern]="namePattern" class="form-control"
+                id="validation" required="">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">lastName</label>
+              <input type="text" formControlName="lastName" [pattern]="namePattern" class="form-control" id="validation"
+                required="">
+            </div>
+
+
+            <div class="mb-3">
+              <label class="form-label">phoneNo</label>
+              <input type="text" formControlName="phoneNo" class="form-control" id="validation" required="">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">email</label>
+              <input type="email" formControlName="email" [pattern]="emailPattern" class="form-control" id="validation"
+                required="">
+            </div>
+
+
+
+            <div class="mb-3">
+              <label for="division">Division</label>
+              <br>
+              <select class="form-control" formControlName="division">
+                <option *ngFor="let division of divisions" value="{{division.id}}">{{division.name}}</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-secondary" (click)="add()" data-bs-dismiss="modal">Save</button>
+          <!-- <button type="submit">Create</button> -->
+          <!-- <button type="button" *ngIf="showAdd" (click)="postEmployeeDetail()" class="btn btn-primary" [disabled]="formValue.invalid">Add</button>
+          <button type="button" *ngIf="showUpdate"(click)="editEmployeeDetail(row.id)" class="btn btn-primary">Update</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.datatables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+  <script>
+    $('.mydatatable').DataTable();
+  </script>
+</body>
+
+</html>
